@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>For Tanha ♡</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pink:#ff70a8;--pink2:#ffb6d0;--soft:#fff0f7;--black:#27232a;--gray:#777078;--glass:rgba(255,255,255,.62);--border:rgba(255,255,255,.92)}
+html{scroll-behavior:smooth}
+body{min-height:100vh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--black);overflow-x:hidden;background:radial-gradient(circle at 8% 8%,#fff 0 8%,transparent 28%),radial-gradient(circle at 92% 85%,#ffd7e8 0 7%,transparent 30%),linear-gradient(135deg,#fffafd,#ffe9f2 48%,#fff);transition:background 1.3s ease,color 1.3s ease}
+button,input{font:inherit}
+button{border:0;cursor:pointer}
+/* ---------- INTRO / PASSWORD ---------- */
+.introLayer,#passwordScreen{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto;background:radial-gradient(circle at 15% 15%,#fff 0 6%,transparent 28%),radial-gradient(circle at 85% 85%,#ffd3e5 0 7%,transparent 30%),linear-gradient(135deg,#fff9fc,#ffe5f0,#fff);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.introLayer.hide,#passwordScreen.hide{display:none!important}
+.introCard{width:min(450px,100%);padding:28px 22px;border-radius:30px;text-align:center;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.95);box-shadow:0 25px 80px rgba(90,35,70,.14),inset 0 1px 0 #fff;animation:cardIn .6s ease both}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.introTitle{font-size:clamp(27px,7vw,38px);font-weight:900;letter-spacing:-1.5px;color:#47233f;margin-bottom:10px}.introTitle span{color:var(--pink)}
+.introText{color:#79566f;font-size:13px;line-height:1.7;max-width:380px;margin:0 auto 18px}
+.verificationBadge,.cookieMiniBadge{display:inline-flex;align-items:center;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid rgba(224,169,211,.4);color:#895d80;font-size:9px;font-weight:900;letter-spacing:1.3px}
+.verificationDot,.cookieLiveDot{width:7px;height:7px;border-radius:50%;background:#61d89a;box-shadow:0 0 0 5px rgba(97,216,154,.12);margin-right:6px;animation:blink 1.5s infinite}.cookieLiveDot{width:6px;height:6px}
+@keyframes blink{50%{opacity:.35}}
+.cleanVerifyBox{margin:18px 0 12px;padding:10px;border-radius:21px;background:rgba(248,239,255,.75);border:1px solid rgba(255,255,255,.95)}
+/* ---------- CUTE LIVE ROBOT ---------- */
+.robotScene{position:relative;width:150px;height:156px;margin:2px auto 8px;display:grid;place-items:center;filter:drop-shadow(0 15px 18px rgba(139,89,170,.13));}
+.robotAura{position:absolute;width:118px;height:118px;border-radius:50%;background:radial-gradient(circle,rgba(255,145,210,.22),rgba(157,136,255,.08) 52%,transparent 72%);filter:blur(8px);animation:robotAura 2.8s ease-in-out infinite}
+.robotCute{position:relative;width:112px;height:138px;animation:robotBob 2.7s ease-in-out infinite;}
+.robotCute .antenna{position:absolute;top:0;left:53px;width:6px;height:20px;border-radius:9px;background:linear-gradient(#9c7bed,#d58fe9);z-index:1}
+.robotCute .antenna:before{content:"";position:absolute;left:-4px;top:-8px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#ff8fc7,#9b86ff);box-shadow:0 0 14px rgba(255,120,197,.7);animation:robotLight 1.3s ease-in-out infinite}
+.robotHead{position:absolute;left:7px;top:18px;width:98px;height:70px;border-radius:28px 28px 24px 24px;background:linear-gradient(145deg,#fff,#f2e6ff);border:2px solid rgba(255,255,255,.98);box-shadow:inset 0 0 16px rgba(255,255,255,.8),0 10px 22px rgba(130,96,165,.14)}
+.robotEar{position:absolute;top:22px;width:12px;height:26px;border-radius:8px;background:linear-gradient(#dfb5f0,#bca4e9);}
+.robotEar.left{left:-10px}.robotEar.right{right:-10px}
+.robotFace{position:absolute;inset:10px;border-radius:19px;background:linear-gradient(145deg,#493b63,#302941);overflow:hidden;}
+.robotEyeRow{display:flex;justify-content:center;gap:23px;padding-top:17px}
+.robotEye{width:11px;height:11px;border-radius:50%;background:#ff9fd7;box-shadow:0 0 10px #ff83c7;animation:robotBlink 4s infinite}
+.robotEye:nth-child(2){animation-delay:.18s}
+.robotMouth{width:26px;height:10px;margin:11px auto 0;border-bottom:3px solid #b79cff;border-radius:0 0 18px 18px;animation:robotSmile 2.8s ease-in-out infinite}
+.robotCheek{position:absolute;top:39px;width:12px;height:7px;border-radius:50%;background:rgba(255,139,194,.65);filter:blur(1px)}
+.robotCheek.left{left:10px}.robotCheek.right{right:10px}
+.robotBody{position:absolute;left:20px;top:92px;width:72px;height:44px;border-radius:19px 19px 15px 15px;background:linear-gradient(145deg,#fff,#eadbfa);border:2px solid rgba(255,255,255,.95);box-shadow:0 10px 22px rgba(130,96,165,.12)}
+.robotHeart{position:absolute;left:30px;top:12px;width:12px;height:12px;background:#ef79ba;transform:rotate(45deg);border-radius:3px;box-shadow:0 0 12px rgba(239,121,186,.55);animation:robotHeart 1.6s ease-in-out infinite}
+.robotHeart:before,.robotHeart:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:inherit}.robotHeart:before{top:-6px;left:0}.robotHeart:after{left:-6px;top:0}
+.robotArm{position:absolute;top:101px;width:9px;height:29px;border-radius:10px;background:linear-gradient(#e8d9f7,#c8b2eb);transform-origin:top center}
+.robotArm.left{left:11px;transform:rotate(13deg);animation:robotWave 2.1s ease-in-out infinite}.robotArm.right{right:11px;transform:rotate(-13deg);animation:robotWave 2.1s ease-in-out infinite reverse}
+.robotFoot{position:absolute;bottom:-2px;width:23px;height:9px;border-radius:10px;background:#c9b5e9}.robotFoot.left{left:25px}.robotFoot.right{right:25px}
+@keyframes robotAura{0%,100%{transform:scale(.92);opacity:.72}50%{transform:scale(1.08);opacity:1}}
+@keyframes robotBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-6px) rotate(1deg)}}
+@keyframes robotLight{0%,100%{transform:scale(.72);opacity:.55}50%{transform:scale(1.08);opacity:1}}
+@keyframes robotBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.12)}}
+@keyframes robotSmile{0%,100%{transform:scaleX(.88)}50%{transform:scaleX(1.06)}}
+@keyframes robotHeart{0%,100%{transform:rotate(45deg) scale(1)}50%{transform:rotate(45deg) scale(1.18)}}
+@keyframes robotWave{0%,100%{transform:rotate(13deg)}50%{transform:rotate(25deg)}}
+
+.cleanVerifyButton{position:relative;width:100%;height:62px;border-radius:16px;background:linear-gradient(135deg,#ec75b6,#9a7cf4);color:#fff;font-size:14px;font-weight:900;box-shadow:0 12px 28px rgba(190,90,180,.22);overflow:hidden;transition:.25s}.cleanVerifyButton:hover{transform:translateY(-2px)}.cleanVerifyButton:disabled{cursor:wait;opacity:.78;transform:none}.cleanVerifyButton.verifying{background:linear-gradient(135deg,#de7fb4,#8f7ce7)}.cleanVerifyButton.verified{background:linear-gradient(135deg,#62d99a,#55b9d8)}
+.verifyCheck{display:inline-grid;place-items:center;width:30px;height:30px;margin-right:8px;border-radius:10px;background:rgba(255,255,255,.22)}
+.verifyLoader{display:none;width:16px;height:16px;margin-left:8px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;vertical-align:-3px;animation:spin .8s linear infinite}.cleanVerifyButton.verifying .verifyLoader{display:inline-block}@keyframes spin{to{transform:rotate(360deg)}}
+.robot-instruction{font-size:10px;color:#9c8196;margin-top:9px}.verificationStatus{margin:10px 0;color:#76566f;font-size:11px;font-weight:750}.verificationProgress{height:7px;border-radius:20px;overflow:hidden;background:rgba(220,177,211,.22)}#robotProgress{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ed79b9,#9b7df0);transition:width .15s linear}.verificationFooter,.gateMini{display:flex;justify-content:center;gap:7px;margin-top:15px;color:#a1849b;font-size:9px}
+.royalCookieCard{text-align:center}.royalCrown{width:58px;height:58px;display:grid;place-items:center;margin:0 auto 12px;border-radius:20px;color:#bd75d5;font-size:28px;background:linear-gradient(145deg,#fff,#f6dcff);box-shadow:0 12px 28px rgba(190,105,190,.18);animation:float 3s ease-in-out infinite}@keyframes float{50%{transform:translateY(-5px)}}
+.cookieTopGlow{width:220px;height:140px;position:absolute;top:-70px;left:50%;transform:translateX(-50%);border-radius:50%;background:rgba(255,126,207,.18);filter:blur(30px);pointer-events:none}.royalCookieCard{position:relative;overflow:hidden}.royalCookieCard>*{position:relative;z-index:1}
+.royalDivider{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 0 16px}.royalDivider span{width:58px;height:1px;background:linear-gradient(90deg,transparent,rgba(216,135,195,.6))}.royalDivider b{color:#d47db8}.ownerSpotlight{padding:18px 12px 16px;border-radius:22px;background:linear-gradient(135deg,rgba(255,226,246,.95),rgba(239,229,255,.9));box-shadow:0 12px 28px rgba(190,105,180,.12);margin-bottom:14px}.ownerLabel{color:#9c7190;font-size:8px;font-weight:900;letter-spacing:1.4px}.ownerName{font-size:clamp(20px,6vw,28px);font-weight:1000;margin:6px 0 3px}.ownerTagline{color:#98758f;font-size:9px;font-style:italic}.royalRainbowName{background:linear-gradient(90deg,#ff3f9d,#ff754f,#ffc83d,#55cf8a,#35bdf5,#8c6cff,#e95cff,#ff3f9d);background-size:700% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rainbow 14s linear infinite,glow 5.5s ease-in-out infinite alternate}@keyframes rainbow{to{background-position:700% center}}@keyframes glow{to{filter:drop-shadow(0 0 12px rgba(255,100,200,.35))}}
+.creditsGrid{display:grid;gap:9px;margin-bottom:14px}.creditItem{display:flex;align-items:center;gap:11px;padding:11px;border-radius:16px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.9);text-align:left}.creditIcon{flex:0 0 36px;width:36px;height:36px;display:grid;place-items:center;border-radius:12px;color:#fff}.helperIcon{background:linear-gradient(135deg,#f58cc6,#b18af2)}.animationIcon{background:linear-gradient(135deg,#8ed9ff,#8f8af3)}.hostIcon{background:linear-gradient(135deg,#a9e8c2,#70bfe2)}.creditText{display:flex;flex-direction:column;gap:2px}.creditRole{color:#a07b96;font-size:8px;font-weight:900;letter-spacing:1px}.creditText strong{color:#5e3d59;font-size:13px}.creditText small{color:#a08398;font-size:9px}.privacyPanel{padding:13px;text-align:left;border-radius:18px;background:rgba(248,239,255,.75);margin-bottom:13px}.privacyPanelHeader{display:flex;align-items:center;gap:8px;color:#684b68;font-size:11px;margin-bottom:7px}.privacyShield{width:22px;height:22px;display:grid;place-items:center;border-radius:8px;background:#fff;color:#a175d7}.privacyPanel p{margin:6px 0;color:#806a7d;font-size:9px;line-height:1.55}.royalCookieButtons{display:flex;flex-direction:column;gap:8px}.cookieBtn{width:100%;padding:14px 18px;border-radius:15px;background:linear-gradient(135deg,#ef77b9,#a27cf0);color:#fff;font-size:12px;font-weight:900;box-shadow:0 12px 25px rgba(190,90,180,.2)}.cookieBtn.skip{background:#fff;color:#704d68;border:1px solid rgba(210,157,196,.4);box-shadow:none}.cookieBottomNote{margin-top:12px;color:#ad91a8;font-size:8px;font-style:italic}
+/* ---------- VERIFICATION CHECK STATE ---------- */
+.verifyCheck{background:rgba(255,255,255,.20);color:rgba(255,255,255,.92);font-size:18px;font-weight:900;line-height:1;transition:transform .35s ease,background .35s ease,box-shadow .35s ease}
+.cleanVerifyButton.verifying .verifyCheck{animation:verifyCheckPulse 1s ease-in-out infinite}
+.cleanVerifyButton.verified .verifyCheck{background:rgba(255,255,255,.28);box-shadow:0 0 0 5px rgba(255,255,255,.08);transform:scale(1.08)}
+@keyframes verifyCheckPulse{0%,100%{transform:scale(.86);opacity:.65}50%{transform:scale(1.08);opacity:1}}
+
+/* ---------- SOFT CREDIT NAME EFFECTS ---------- */
+.creditText strong{display:inline-block;position:relative}
+.creditItem:nth-child(1) .creditText strong{animation:softNamePink 4.8s ease-in-out infinite}
+.creditItem:nth-child(2) .creditText strong{animation:softNameBlue 5.2s ease-in-out infinite .2s}
+.creditItem:nth-child(3) .creditText strong{animation:softNameMint 5s ease-in-out infinite .45s}
+@keyframes softNamePink{0%,100%{color:#5e3d59;text-shadow:0 0 0 rgba(245,140,198,0);transform:translateY(0)}50%{color:#6f4562;text-shadow:0 0 12px rgba(245,140,198,.3);transform:translateY(-1px)}}
+@keyframes softNameBlue{0%,100%{color:#5e3d59;text-shadow:0 0 0 rgba(142,217,255,0);transform:translateY(0)}50%{color:#4d5970;text-shadow:0 0 12px rgba(142,217,255,.3);transform:translateY(-1px)}}
+@keyframes softNameMint{0%,100%{color:#5e3d59;text-shadow:0 0 0 rgba(112,191,226,0);transform:translateY(0)}50%{color:#4f6b63;text-shadow:0 0 12px rgba(112,191,226,.3);transform:translateY(-1px)}}
+
+/* ---------- EXTENDED COOKIE INFORMATION ---------- */
+.cookieInfoLong{margin:0 0 14px;padding:14px;text-align:left;border-radius:19px;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.88);box-shadow:0 8px 20px rgba(165,105,165,.05)}
+.cookieInfoLong h3{margin:0 0 5px;color:#65445f;font-size:11px;font-weight:900}
+.cookieInfoLong p{margin:0 0 8px;color:#806a7d;font-size:9px;line-height:1.6}
+.cookieInfoLong p:last-child{margin-bottom:0}
+.cookieInfoLong .infoDivider{height:1px;margin:10px 0;background:linear-gradient(90deg,transparent,rgba(213,157,201,.35),transparent)}
+.loadingCard{width:min(400px,100%);text-align:center}.loadingPhoto{width:145px;height:145px;object-fit:cover;display:block;margin:0 auto 24px;border-radius:38px;background:linear-gradient(135deg,#fff,#ffdcf1);box-shadow:0 20px 50px rgba(190,90,170,.18)}.loadingSpinner{width:42px;height:42px;margin:20px auto;border-radius:50%;border:4px solid rgba(224,157,207,.3);border-top-color:#df70b5;border-right-color:#9279ed;animation:spin .8s linear infinite}.loadingBar{width:100%;height:8px;border-radius:20px;background:rgba(225,180,211,.25);overflow:hidden}.loadingBar::after{content:"";display:block;width:45%;height:100%;background:linear-gradient(90deg,#ed72b7,#9a7cf4);animation:load 1.5s ease-in-out infinite}@keyframes load{from{transform:translateX(-110%)}to{transform:translateX(240%)}}
+#passwordScreen{display:none;flex-direction:column}.passwordOuter{position:relative;width:min(430px,100%);padding:2px;border-radius:34px;background:linear-gradient(120deg,#ff5c91,#ffb86c,#fff06a,#72e8a4,#72cfff,#a87bff,#ff67b3,#ff5c91);background-size:400% 400%;animation:rb 7s ease infinite}@keyframes rb{50%{background-position:100% 50%}}.passwordCard{position:relative;padding:40px 30px;border-radius:32px;text-align:center;background:rgba(255,255,255,.83);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px)}.passwordTiny{font-size:10px;font-weight:900;letter-spacing:2px;color:var(--pink);margin-bottom:14px;text-transform:uppercase}.passwordTitle{font-size:43px;line-height:.95;letter-spacing:-2.5px;font-weight:900}.passwordTitle span{color:var(--pink)}.passwordSub{margin:15px auto 24px;max-width:280px;color:#817880;font-size:13px;line-height:1.6}.passwordInput{width:100%;height:52px;border-radius:16px;border:1px solid rgba(0,0,0,.07);outline:none;padding:0 17px;text-align:center;font-size:14px;font-weight:700;color:var(--black);background:#fff}.unlockButton{width:100%;height:52px;margin-top:11px;border-radius:16px;background:var(--black);color:#fff;font-size:13px;font-weight:900}.passwordHint{min-height:20px;margin-top:12px;font-size:11px;color:#999}.passwordHint.error{color:#d87899}.passwordHint.success{color:#72a889}.passDots{position:absolute;inset:0;pointer-events:none;overflow:hidden}.passDots span{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff;opacity:.7;animation:dotFloat 6s linear infinite}@keyframes dotFloat{from{transform:translateY(30px);opacity:0}20%{opacity:.8}to{transform:translateY(-100vh);opacity:0}}
+body.introRunning>nav,body.introRunning>.progressWrap,body.introRunning>main,body.introRunning>.blob,body.introRunning>.hearts,body.introRunning>.modal{visibility:hidden;pointer-events:none}body.passwordReady>nav,body.passwordReady>.progressWrap,body.passwordReady>main,body.passwordReady>.blob,body.passwordReady>.hearts,body.passwordReady>.modal{visibility:hidden;pointer-events:none}
+/* ---------- MAIN ---------- */
+.blob{position:fixed;border-radius:50%;filter:blur(65px);opacity:.35;pointer-events:none;z-index:-2;transition:background 1.3s ease}.blob1{width:240px;height:240px;background:#ff9fc5;top:-80px;left:-90px}.blob2{width:300px;height:300px;background:#e7c8ff;right:-130px;bottom:-120px}.blob3{width:180px;height:180px;background:#ffc4dc;left:45%;top:45%}
+nav{width:min(1100px,92%);margin:20px auto 0;padding:13px 17px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.57);border:1px solid var(--border);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:22px;box-shadow:0 15px 50px rgba(70,35,55,.08);position:relative;z-index:50}.logo{font-size:17px;font-weight:900}.logo span{color:var(--pink)}.navRight{display:flex;align-items:center;gap:9px}.counter{padding:8px 12px;border-radius:100px;background:#fff;color:#777;font-size:11px;font-weight:850}.menuButton{width:34px;height:34px;border-radius:12px;background:#fff;color:#555;font-size:20px}.menuPanel{position:fixed;top:72px;right:4%;width:230px;padding:9px;background:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.95);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border-radius:22px;box-shadow:0 20px 60px rgba(50,25,40,.14);z-index:100;opacity:0;transform:translateY(-10px) scale(.97);pointer-events:none;transition:.25s}.menuPanel.show{opacity:1;transform:none;pointer-events:auto}.menuItem{width:100%;padding:13px 14px;background:transparent;color:var(--black);text-align:left;border-radius:13px;font-size:12px;font-weight:750}.menuItem:hover{background:var(--soft);color:var(--pink)}
+.progressWrap{width:min(700px,80%);margin:17px auto 0}.progressBg{height:5px;border-radius:99px;background:rgba(255,255,255,.7);overflow:hidden}.progress{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#ff72aa,#ffb0cb);transition:width .7s ease}
+main{width:min(1100px,92%);margin:auto}.chapter{display:none!important;padding:56px 0 40px;opacity:0;visibility:hidden;pointer-events:none}.chapter.active{display:block!important;visibility:visible;opacity:1;pointer-events:auto;animation:enter .65s ease both}@keyframes enter{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:none}}
+.hero{display:grid;grid-template-columns:.72fr 1.28fr;gap:35px;align-items:center}.eyebrow{color:var(--pink);font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px}h1{font-size:clamp(45px,7vw,82px);line-height:.93;letter-spacing:-4px}h1 span{color:var(--pink)}.highlight{position:relative;display:inline;isolation:isolate;color:var(--pink);padding:0 4px 3px;background:linear-gradient(transparent 53%,rgba(255,208,226,.88) 53%,rgba(255,208,226,.88) 86%,transparent 86%);background-size:100% 100%;text-shadow:0 2px 16px rgba(255,112,168,.12)}
+.highlight:before{content:"";position:absolute;left:-3px;right:-3px;bottom:0;height:46%;border-radius:999px;z-index:-1;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,.9) 50%,rgba(255,255,255,0) 82%,transparent 100%);background-size:220% 100%;filter:blur(2px);opacity:.82;animation:highlightSweep 2.6s ease-in-out infinite}
+.highlight:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:99px;background:linear-gradient(90deg,transparent,#ff70a8,#ffbfd8,#ff70a8,transparent);background-size:220% 100%;box-shadow:0 0 10px rgba(255,112,168,.35);animation:highlightLine 2.1s linear infinite}
+@keyframes highlightSweep{0%{background-position:130% 0;opacity:0}20%{opacity:.7}50%{background-position:0 0;opacity:.95}80%{opacity:.7}100%{background-position:-130% 0;opacity:0}}
+@keyframes highlightLine{0%{background-position:220% 0}100%{background-position:-220% 0}}
+.highlight:hover{filter:brightness(1.03);text-shadow:0 4px 20px rgba(255,112,168,.28)}.smallText{max-width:500px;margin-top:18px;color:var(--gray);line-height:1.75;font-size:14px}.glass{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 20px 60px rgba(65,30,50,.09)}
+.gifBox{min-height:500px;border-radius:42px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.gifBox::before{content:"";position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,#fffaff,#ffe5ef)}.gifBox img{position:relative;z-index:2;width:500px;height:500px;max-width:94%;object-fit:contain;filter:drop-shadow(0 25px 25px rgba(0,0,0,.12));transition:.45s ease}.gifBox:hover img{transform:scale(1.03)}.gifLabel{position:absolute;top:18px;left:18px;z-index:5;background:#fff;padding:9px 13px;border-radius:13px;font-size:10px;font-weight:900;color:#777}.gifTilt{transform:rotate(-1deg)}.gifCircle{border-radius:50%;width:570px;height:570px;max-width:100%;margin:0 auto}.gifCircle::before{width:430px;height:430px}.gifCircle img{width:480px;height:480px}.gifFrame{border-radius:30px;padding:22px;background:rgba(255,255,255,.52);border:2px solid rgba(255,255,255,.9)}.gifFrame img{border-radius:25px;width:470px;height:470px;background:#fff}.gifGlow{box-shadow:0 0 0 1px rgba(255,255,255,.8),0 25px 90px rgba(255,112,168,.17)}.gifFinal{border-radius:45px;background:linear-gradient(145deg,rgba(255,255,255,.75),rgba(255,232,242,.62))}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:17px;margin-top:25px}.card{padding:23px;border-radius:27px}.card h2{font-size:21px;letter-spacing:-1px;margin-bottom:8px}.card p{color:var(--gray);font-size:13px;line-height:1.7}.quote{padding:38px 28px;border-radius:32px;text-align:center;margin-top:25px}.quote p{max-width:760px;margin:auto;font-size:clamp(21px,3.5vw,34px);font-weight:850;line-height:1.3;letter-spacing:-1px}.quote span{display:block;margin-top:13px;color:var(--pink);font-size:11px;font-weight:850}
+.buttonRow{display:flex;gap:10px;margin-top:27px}.buttonRow button{padding:14px 20px;border-radius:15px;background:var(--black);color:#fff;font-size:12px;font-weight:850;box-shadow:0 10px 25px rgba(39,35,42,.16);transition:.25s}.buttonRow button:hover{transform:translateY(-3px);background:#ff5d9c}.memoryGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:27px}.memory{min-height:180px;padding:20px;border-radius:27px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;transition:.3s}.memory:hover{transform:translateY(-5px)}.memory .symbol{width:70px;height:70px;border-radius:22px;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--pink);font-size:27px;margin-bottom:12px}.memory strong{font-size:13px}.memory small{color:#817880;font-size:11px;margin-top:5px}
+.loveButton{width:130px;height:130px;margin:30px auto 0;border-radius:50%;background:rgba(255,255,255,.75);color:var(--pink);border:1px solid #fff;display:flex;align-items:center;justify-content:center;font-size:45px;cursor:pointer;box-shadow:0 15px 40px rgba(255,100,160,.13);transition:.3s}.loveButton:hover{transform:scale(1.08);background:#fff}.loveMessage{text-align:center;margin-top:13px;color:var(--pink);font-size:12px;font-weight:800;min-height:18px}
+.final{max-width:850px;margin:auto;text-align:center}.final .gifBox{margin-top:30px}.finalText{max-width:650px;margin:28px auto 0;color:var(--gray);font-size:14px;line-height:1.8}.signature{margin-top:28px;font-size:25px;font-weight:900}.signature span{color:var(--pink)}
+.modal{position:fixed;inset:0;background:rgba(30,20,28,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:200;opacity:0;pointer-events:none;transition:.25s}.modal.show{opacity:1;pointer-events:auto}.modalBox{width:min(500px,100%);max-height:80vh;overflow:auto;padding:28px;border-radius:30px;background:rgba(255,255,255,.84);border:1px solid rgba(255,255,255,.95);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);box-shadow:0 30px 80px rgba(30,20,30,.18)}.modalTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.modalTop h2{font-size:23px}.close{width:35px;height:35px;border-radius:12px;background:#fff;color:#555}.modalBox p{color:var(--gray);font-size:13px;line-height:1.8;margin-top:10px}.creatorName{font-size:28px;font-weight:900;margin-bottom:5px}.creatorName span{color:var(--pink)}
+.hearts span{position:fixed;bottom:-40px;color:#ff72a8;opacity:.55;z-index:-1;pointer-events:none;animation:floatHeart linear infinite}@keyframes floatHeart{0%{transform:translateY(0);opacity:0}15%{opacity:.6}100%{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+body.theme-pink{--pink:#ff6f9f;--pink2:#ffb6cf;--soft:#fff0f6;--black:#3b2630;--gray:#8c6f7a;background:radial-gradient(circle at 10% 10%,#ffd9e8,transparent 35%),radial-gradient(circle at 90% 90%,#ffeaf2,transparent 35%),#fff7fa}body.theme-lavender{--pink:#a78bfa;--pink2:#d8ccff;--soft:#f4f0ff;--black:#302744;--gray:#766b91;background:radial-gradient(circle at 10% 10%,#e5ddff,transparent 35%),radial-gradient(circle at 90% 90%,#f0eaff,transparent 35%),#faf8ff}body.theme-peach{--pink:#ff9b71;--pink2:#ffd0bd;--soft:#fff1e9;--black:#432d27;--gray:#92776d;background:radial-gradient(circle at 10% 10%,#ffe0d1,transparent 35%),radial-gradient(circle at 90% 90%,#ffefe7,transparent 35%),#fffaf7}body.theme-sky{--pink:#64b5f6;--pink2:#bde3ff;--soft:#edf8ff;--black:#263746;--gray:#71899a;background:radial-gradient(circle at 10% 10%,#d9f0ff,transparent 35%),radial-gradient(circle at 90% 90%,#eaf7ff,transparent 35%),#f7fcff}body.theme-mint{--pink:#42c9a0;--pink2:#a8efd9;--soft:#e8fff7;--black:#203a33;--gray:#6a8b80;background:radial-gradient(circle at 10% 10%,#d4fff2,transparent 35%),radial-gradient(circle at 90% 90%,#e7fff8,transparent 35%),#f7fffc}body.theme-blue{--pink:#6f86ff;--pink2:#b5c0ff;--soft:#edf0ff;--black:#27304a;--gray:#707b9c;background:radial-gradient(circle at 10% 10%,#dfe5ff,transparent 35%),radial-gradient(circle at 90% 90%,#edf0ff,transparent 35%),#f8f9ff}.progress{background:linear-gradient(90deg,var(--pink2),var(--pink))}
+@media(max-width:480px){.robotScene{transform:scale(.92);margin-top:-4px;margin-bottom:2px}}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero .gifBox{order:-1}.gifBox{min-height:420px}.gifBox::before{width:350px;height:350px}.gifBox img{width:390px;height:390px}.gifCircle{width:430px;height:430px}.gifCircle img{width:350px;height:350px}.cards{grid-template-columns:1fr}.memoryGrid{grid-template-columns:repeat(2,1fr)}h1{letter-spacing:-2.5px}}
+@media(max-width:480px){.chapter{padding-top:40px}.gifBox{min-height:350px;border-radius:32px}.gifBox::before{width:285px;height:285px}.gifBox img{width:320px;height:320px}.gifCircle{width:340px;height:340px}.gifCircle img{width:285px;height:285px}.gifFrame{padding:13px}.gifFrame img{width:285px;height:285px}.memory{min-height:160px}.buttonRow{flex-direction:column}.buttonRow button{width:100%}.counter{display:none}.menuPanel{right:4%;width:210px}.passwordCard{padding:34px 22px}.passwordTitle{font-size:38px}}
+
+/* ---------- COOKIE PAGE FULL VISIBILITY FIX ---------- */
+#cookieLayer{
+  align-items:flex-start !important;
+  justify-content:flex-start !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:2px 12px 26px !important;
+  -webkit-overflow-scrolling:touch;
+}
+#cookieLayer .royalCookieCard{
+  flex:0 0 auto !important;
+  width:min(450px,100%) !important;
+  max-height:none !important;
+  height:auto !important;
+  margin:0 auto !important;
+  padding:7px 20px 22px !important;
+  overflow:visible !important;
+}
+
+/* Force visible, gentle motion on every non-owner credit name */
+.cookieLayerName{
+  position:relative;
+  display:inline-block;
+  animation:creditNameFloat 4.6s ease-in-out infinite;
+}
+.cookieLayerName::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-3px;
+  height:1.5px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+  background-size:220% 100%;
+  animation:creditNameShine 3.6s ease-in-out infinite;
+  opacity:.7;
+}
+.cookieTawhid{color:#5e3d59;text-shadow:0 0 0 rgba(245,140,198,0);animation-delay:.1s}
+.cookieHasnat{color:#5e3d59;text-shadow:0 0 0 rgba(142,217,255,0);animation-delay:.55s}
+.cookieHridoya{color:#5e3d59;text-shadow:0 0 0 rgba(112,191,226,0);animation-delay:.9s}
+@keyframes creditNameFloat{0%,100%{transform:translateY(0);text-shadow:0 0 0 currentColor}50%{transform:translateY(-1px);filter:brightness(1.06);text-shadow:0 0 10px currentColor}}
+@keyframes creditNameShine{0%,100%{background-position:150% 0;opacity:0}35%{opacity:.2}55%{background-position:-50% 0;opacity:.75}75%{opacity:.15}}
+#cookieLayer .cookieTopGlow{
+  pointer-events:none;
+}
+#cookieLayer .cookieBottomNote{
+  padding-bottom:4px;
+}
+
+
+/* ---------- FINAL COOKIE POSITION + CREDIT ANIMATION OVERRIDE ---------- */
+#cookieLayer:not(.hide){
+  display:block !important;
+  height:100dvh !important;
+  min-height:100vh !important;
+  max-height:none !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:8px 12px 30px !important;
+  scroll-behavior:auto !important;
+}
+#cookieLayer:not(.hide) .royalCookieCard{
+  display:block !important;
+  position:relative !important;
+  top:0 !important;
+  transform:none !important;
+  margin:0 auto !important;
+  min-height:0 !important;
+}
+#cookieLayer:not(.hide) .cookieTopGlow{top:-70px !important;}
+
+.creditItem:nth-child(1) .creditText strong.cookieLayerName,
+.creditItem:nth-child(2) .creditText strong.cookieLayerName,
+.creditItem:nth-child(3) .creditText strong.cookieLayerName{
+  display:inline-block !important;
+  position:relative !important;
+  animation:cookieCreditGlow 3.8s ease-in-out infinite !important;
+  transition:color .5s ease,filter .5s ease !important;
+}
+.creditItem:nth-child(1) .creditText strong.cookieLayerName{animation-delay:0s !important;color:#6b3f5d !important;}
+.creditItem:nth-child(2) .creditText strong.cookieLayerName{animation-delay:.55s !important;color:#514d69 !important;}
+.creditItem:nth-child(3) .creditText strong.cookieLayerName{animation-delay:1.05s !important;color:#4b665f !important;}
+.creditItem .cookieLayerName::after{
+  content:"";
+  position:absolute;
+  left:-2px;
+  right:-2px;
+  bottom:-4px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+  background-size:220% 100%;
+  animation:cookieNameShine 3s ease-in-out infinite;
+  opacity:.75;
+  pointer-events:none;
+}
+@keyframes cookieCreditGlow{
+  0%,100%{transform:translateY(0);filter:drop-shadow(0 0 0 rgba(255,120,190,0));text-shadow:0 0 0 transparent;}
+  50%{transform:translateY(-1px);filter:drop-shadow(0 0 7px rgba(255,120,190,.28));text-shadow:0 0 9px currentColor;}
+}
+@keyframes cookieNameShine{
+  0%{background-position:150% 0;opacity:0}
+  30%{opacity:.15}
+  55%{background-position:-50% 0;opacity:.8}
+  80%,100%{background-position:-150% 0;opacity:0}
+}
+
+</style>
+</head>
+<body class="introRunning">
+
+<!-- ================= INTRO ================= -->
+<div id="robotLayer" class="introLayer">
+  <div class="introCard">
+    <div class="verificationBadge"><span class="verificationDot"></span>SECURE ACCESS</div>
+    <h1 class="introTitle" style="margin-top:14px">Human Verification</h1>
+    <p class="introText">Tap the verification box once. The security check will complete automatically in a few seconds.</p>
+    <div class="robotScene" aria-hidden="true">
+      <div class="robotAura"></div>
+      <div class="robotCute">
+        <div class="antenna"></div>
+        <div class="robotHead">
+          <div class="robotEar left"></div><div class="robotEar right"></div>
+          <div class="robotFace">
+            <div class="robotCheek left"></div><div class="robotCheek right"></div>
+            <div class="robotEyeRow"><span class="robotEye"></span><span class="robotEye"></span></div>
+            <div class="robotMouth"></div>
+          </div>
+        </div>
+        <div class="robotBody"><div class="robotHeart"></div></div>
+        <div class="robotArm left"></div><div class="robotArm right"></div>
+        <div class="robotFoot left"></div><div class="robotFoot right"></div>
+      </div>
+    </div>
+    <div class="cleanVerifyBox">
+      <button id="robotVerifyBtn" class="cleanVerifyButton" type="button" onclick="verifyRobot()">
+        <span class="verifyCheck" id="verifyCheck">○</span><span id="verifyText">I'm Human</span><span class="verifyLoader"></span>
+      </button>
+      <div class="robot-instruction" id="robotStatus">Click once to start verification</div>
+      <div class="verificationProgress"><div id="robotProgress"></div></div>
+    </div>
+    <div class="verificationFooter"><span>Private access</span><span>•</span><span>Browser verification</span></div>
+  </div>
+</div>
+
+<div id="cookieLayer" class="introLayer hide">
+  <div class="introCard royalCookieCard">
+    <div class="cookieTopGlow"></div>
+    <div class="cookieMiniBadge"><span class="cookieLiveDot"></span>WELCOME TO THE EXPERIENCE</div>
+    <h1 class="introTitle" style="margin-top:12px">A Little Cookie Note</h1>
+    <p class="introText">Before the story begins, here is a small note about this website, its creators, and your privacy.</p>
+    <div class="royalDivider"><span></span><b>✦</b><span></span></div>
+    <div class="ownerSpotlight">
+      <div class="ownerLabel">MAIN DEVELOPER · FOUNDER · OWNER</div>
+      <div class="ownerName"><span class="royalRainbowName">Shakin AL Muhammad</span></div>
+      <div class="ownerTagline">The mind behind this little world</div>
+    </div>
+    <div class="creditsGrid">
+      <div class="creditItem"><div class="creditIcon helperIcon">✦</div><div class="creditText"><span class="creditRole">MAIN HELPER DEVELOPER</span><strong class="cookieLayerName cookieTawhid">Tawhid Ahmed</strong><small>Helping the vision come alive</small></div></div>
+      <div class="creditItem"><div class="creditIcon animationIcon">◈</div><div class="creditText"><span class="creditRole">ANIMATION DESIGNER</span><strong class="cookieLayerName cookieHasnat">Hasnat Bro</strong><small>Adding motion and magic</small></div></div>
+      <div class="creditItem"><div class="creditIcon hostIcon">⌂</div><div class="creditText"><span class="creditRole">HOSTER</span><strong class="cookieLayerName cookieHridoya">hridoya Ahmed</strong><small>Keeping the experience online</small></div></div>
+    </div>
+    <div class="privacyPanel">
+      <div class="privacyPanelHeader"><span class="privacyShield">◇</span><strong>Privacy & Cookie Information</strong></div>
+      <p>This website may use basic browser storage to remember progress and intro completion.</p>
+      <p>No unnecessary personal information is intentionally collected, sold, or shared through this experience.</p>
+      <p>You can accept the optional storage or continue by skipping.</p>
+    </div>
+    <div class="cookieInfoLong">
+      <h3>Project Overview</h3>
+      <p>This is a personal front-end birthday experience built as a single HTML project. The chapters, animations, verification screen, password gate, and visual effects run inside the browser.</p>
+      <div class="infoDivider"></div>
+      <h3>Privacy & Data</h3>
+      <p>The page does not intentionally send names, messages, password values, or verification results to a project server. Any browser storage used by the intro stays under the browser's local storage controls.</p>
+      <div class="infoDivider"></div>
+      <h3>Cookies & Local Storage</h3>
+      <p>The cookie buttons are an experience setting rather than a tracking system. The page may remember an intro option using localStorage, and that browser data can be cleared at any time.</p>
+      <div class="infoDivider"></div>
+      <h3>Password & Access</h3>
+      <p>The password gate is a private presentation layer. Because this is client-side HTML, it is not server-grade security and should not protect highly sensitive information.</p>
+      <div class="infoDivider"></div>
+      <h3>Human Verification</h3>
+      <p>The verification screen is a lightweight local interaction. After one click, it runs an animated browser-side check for a few seconds before opening the next step. It is not a replacement for professional anti-bot services.</p>
+      <div class="infoDivider"></div>
+      <h3>External Media</h3>
+      <p>Some chapter images or GIFs may come from external URLs. Those resources can make network requests and their availability depends on the hosting service. Local assets such as img.png, itt.png, loading-photo.png, and music.mp3 can be placed beside this HTML when used.</p>
+      <div class="infoDivider"></div>
+      <h3>Browser Compatibility</h3>
+      <p>The experience is designed for modern mobile and desktop browsers. Animations may behave differently when reduced-motion, battery-saving, or older browser settings are enabled.</p>
+      <div class="infoDivider"></div>
+      <h3>Hosting & Sharing</h3>
+      <p>This project can be hosted as a normal static webpage. Anyone who receives the HTML can inspect or modify its front-end source, so private personal details should not be placed directly into the code.</p>
+      <div class="infoDivider"></div>
+      <h3>Responsible Use</h3>
+      <p>Share the page respectfully and only include content you are comfortable making part of the webpage source. External media should be used with appropriate permission where required.</p>
+      <div class="infoDivider"></div>
+      <h3>Project Credits</h3>
+      <p>Main Developer · Founder · Owner: Shakin AL Muhammad. Main Helper Developer: Tawhid Ahmed. Animation Designer: Hasnat Bro. Hoster: hridoya Ahmed.</p>
+    </div>
+
+    <div class="royalCookieButtons">
+      <button class="cookieBtn" onclick="acceptCookies()">Accept All Cookies →</button>
+      <button class="cookieBtn skip" onclick="skipCookies()">Continue with Skip</button>
+    </div>
+    <div class="cookieBottomNote">Made with care, creativity, and a little imagination.</div>
+  </div>
+</div>
+
+<div id="loadingLayer" class="introLayer hide">
+  <div class="loadingCard">
+    <img class="loadingPhoto" src="loading-photo.png" alt="Loading" onerror="this.style.visibility='hidden';">
+    <h1 class="introTitle">Preparing Your Story</h1>
+    <p class="introText">A little magic is getting ready for you...</p>
+    <div class="loadingSpinner"></div>
+    <div class="loadingBar"></div>
+  </div>
+</div>
+
+<div id="passwordScreen" class="hide">
+  <div class="passDots" id="passDots"></div>
+  <div class="passwordOuter">
+    <div class="passwordCard">
+      <div class="passwordTiny">A little secret</div>
+      <div class="passwordTitle">Only for <span>Tanha.</span></div>
+      <p class="passwordSub">There is something waiting behind this little door.</p>
+      <input id="passwordInput" class="passwordInput" type="password" placeholder="Enter the password" autocomplete="off">
+      <button class="unlockButton" onclick="checkPassword()">Enter ♡</button>
+      <div class="passwordHint" id="passwordHint">A tiny hint is waiting here.</div>
+    </div>
+  </div>
+</div>
+
+<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div>
+
+<nav>
+  <div class="logo">for <span>Tanha</span> ♡</div>
+  <div class="navRight"><div class="counter" id="counter">Chapter 1 / 7</div><button class="menuButton" onclick="toggleMenu()">⋮</button></div>
+</nav>
+<div class="menuPanel" id="menuPanel">
+  <button class="menuItem" onclick="openModal('about')">About</button>
+  <button class="menuItem" onclick="openModal('privacy')">Privacy Policy</button>
+  <button class="menuItem" onclick="openModal('creator')">About Creator</button>
+</div>
+<div class="progressWrap"><div class="progressBg"><div class="progress" id="progress"></div></div></div>
+
+<main>
+  <section class="chapter active">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Chapter 01 · For you</div>
+        <h1>This Little<br>World Made Just For <span>You.</span></h1>
+        <p class="smallText">I could say a lot... but honestly, <span class="highlight">you already mean enough.</span></p>
+        <div class="buttonRow"><button type="button" onclick="nextChapter(event)">Open my heart</button></div>
+      </div>
+      <div class="gifBox gifSoft glass"><div class="gifLabel">Bow Flower Ta Tumar jonno</div><img src="img.png" alt="Tanha"></div>
+    </div>
+  </section>
+
+  <section class="chapter">
+    <div class="eyebrow">Chapter 02 · It Was Always You</div>
+    <h1>Forever Yours <span>My Heart.</span></h1>
+    <div class="quote glass"><p>You feel like the sweetest part of my life. If I had to choose again, I’d still choose you. <span class="highlight">Love.</span></p><span>— You are my everything.</span></div>
+    <div class="cards"><div class="card glass"><h2>It's you.</h2><p>Maybe your smile, your words, or simply your presence.</p></div><div class="card glass"><h2>Or maybe...</h2><p>My heart decided before I could.</p></div></div>
+    <div class="buttonRow"><button type="button" onclick="nextChapter(event)">Keep going ♡</button></div>
+  </section>
+
+  <section class="chapter">
+    <div class="hero">
+      <div><div class="eyebrow">Chapter 03 · Missing you</div><h1>Some days when I just <span>miss you.</span></h1><p class="smallText">Not loudly. Just quietly... <span class="highlight">wishing you were here.</span></p><div class="buttonRow"><button type="button" onclick="nextChapter(event)">Next chapter</button></div></div>
+      <div class="gifBox gifTilt glass"><div class="gifLabel">when I miss you</div><img src="https://yourimageshare.com/ib/ewGoOkSuM3.gif" alt="Tanha"></div>
+    </div>
+    <div class="loveButton" onclick="showLove()">♡</div><div class="loveMessage" id="loveMessage"></div>
+  </section>
+
+  <section class="chapter">
+    <div class="eyebrow">Chapter 04 · Little things</div><h1>It's the little things about <span>you.</span></h1>
+    <div class="memoryGrid">
+      <div class="memory glass" onclick="memoryClick(this)"><div class="symbol">♡</div><strong>Your smile</strong><small>Most beautiful thing.</small></div>
+      <div class="memory glass" onclick="memoryClick(this)"><div class="symbol">✦</div><strong>Your words</strong><small>I remember them.</small></div>
+      <div class="memory glass" onclick="memoryClick(this)"><div class="symbol">♡</div><strong>Your presence</strong><small>It feels different.</small></div>
+      <div class="memory glass" onclick="memoryClick(this)"><div class="symbol">∞</div><strong>Your little habits</strong><small>Somehow cute.</small></div>
+      <div class="memory glass" onclick="memoryClick(this)"><div class="symbol">✧</div><strong>Your reactions</strong><small>I secretly love them.</small></div>
+      <div class="memory glass" onclick="memoryClick(this)"><div class="symbol">♡</div><strong>Just you</strong><small>That's enough.</small></div>
+    </div>
+    <div class="gifBox gifCircle glass" style="margin-top:30px"><div class="gifLabel">little things</div><img src="https://yourimageshare.com/ib/kqPoYscr5n.gif" alt="Cute Tanha GIF"></div>
+    <div class="quote glass"><p>I’m grateful to have you in my life.❤️</p></div>
+    <div class="buttonRow" style="justify-content:center"><button type="button" onclick="nextChapter(event)">Continue</button></div>
+  </section>
+
+  <section class="chapter">
+    <div class="hero"><div><div class="eyebrow">Chapter 05 · One thought</div><h1>If you ever doubt it... <span>remember me.</span></h1><p class="smallText">Someone out here genuinely wants to see you smile.</p><div class="buttonRow"><button type="button" onclick="nextChapter(event)">One more ♡</button></div></div><div class="gifBox gifFrame glass"><div class="gifLabel">a little reminder</div><img src="what.png" alt="Happy Tanha GIF"></div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="eyebrow">Chapter 06 · One last thought</div><h1>I don't need perfect days. <span>I Just need you.</span></h1>
+    <div class="quote glass"><p>Even an ordinary day feels better when <span class="highlight">you're part of it.</span></p><span>For You ♡</span></div>
+    <div class="gifBox gifGlow glass"><div class="gifLabel">Follower</div><img src="https://yourimageshare.com/ib/JJydZTJrxO.gif" alt="GIF"></div>
+    <div class="buttonRow" style="justify-content:center"><button type="button" onclick="nextChapter(event)">Last chapter</button></div>
+  </section>
+
+  <section class="chapter">
+    <div class="final"><div class="eyebrow">Chapter 07 · The last page</div><h1>Please Forever,<br><span>Stay with me.</span></h1><div class="gifBox gifFinal glass"><div class="gifLabel">made for you</div><img src="Ff.png" alt="Final Tanha GIF"></div><p class="finalText">I made this little place because sometimes feelings are easier to show than explain.<br><br>So... <span class="highlight">thank you for being you.</span></p><div class="signature">Made for <span>Tanha</span> ♡</div><div class="buttonRow" style="justify-content:center"><button type="button" onclick="restart(event)">Read it again</button></div></div>
+  </section>
+</main>
+
+<div class="hearts" id="hearts"></div>
+<div class="modal" id="modal" onclick="outsideClose(event)"><div class="modalBox"><div class="modalTop"><h2 id="modalTitle">About</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalContent"></div></div></div>
+
+<script>
+/* ---------- PASSWORD ---------- */
+const correctPassword='password';
+const passwordInput=document.getElementById('passwordInput');
+const passwordHint=document.getElementById('passwordHint');
+function checkPassword(){
+  const value=passwordInput.value.trim();
+  if(value===correctPassword){passwordHint.textContent='Welcome in ♡';passwordHint.className='passwordHint success';unlockMainWebsite();}
+  else{passwordHint.textContent='Not quite... think of the little secret.';passwordHint.className='passwordHint error';passwordInput.value='';passwordInput.focus();}
+}
+passwordInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkPassword()});
+const passDots=document.getElementById('passDots');
+for(let i=0;i<22;i++){const d=document.createElement('span');d.style.left=Math.random()*100+'%';d.style.top=(70+Math.random()*40)+'%';d.style.animationDelay=Math.random()*6+'s';d.style.animationDuration=(5+Math.random()*5)+'s';passDots.appendChild(d)}
+
+/* ---------- CHAPTER SYSTEM / FIXED SCOPE ---------- */
+(function(){
+  let currentChapter=0;
+  const allChapters=Array.from(document.querySelectorAll('main .chapter'));
+  const chapterCounter=document.getElementById('counter');
+  const chapterProgress=document.getElementById('progress');
+
+  function updateChapters(){
+    if(!allChapters.length)return;
+    currentChapter=Math.max(0,Math.min(currentChapter,allChapters.length-1));
+    allChapters.forEach((chapter,index)=>{
+      const active=index===currentChapter;
+      chapter.classList.toggle('active',active);
+      chapter.setAttribute('aria-hidden',active?'false':'true');
+      chapter.style.setProperty('display',active?'block':'none','important');
+      chapter.style.visibility=active?'visible':'hidden';
+      chapter.style.opacity=active?'1':'0';
+      chapter.style.pointerEvents=active?'auto':'none';
+    });
+    if(chapterCounter)chapterCounter.textContent=`Chapter ${currentChapter+1} / ${allChapters.length}`;
+    if(chapterProgress)chapterProgress.style.width=((currentChapter+1)/allChapters.length*100)+'%';
+    window.scrollTo({top:0,left:0,behavior:'smooth'});
+  }
+
+  function goNextChapter(event){
+    if(event){event.preventDefault();event.stopPropagation()}
+    if(currentChapter<allChapters.length-1){currentChapter++;updateChapters()}
+  }
+  function goRestart(event){
+    if(event){event.preventDefault();event.stopPropagation()}
+    currentChapter=0;updateChapters();
+  }
+
+  /* FIX: expose both functions globally for the password flow */
+  window.updateChapters=updateChapters;
+  window.nextChapter=goNextChapter;
+  window.restart=goRestart;
+  updateChapters();
+})();
+
+/* ---------- MENU / MODAL ---------- */
+const menu=document.getElementById('menuPanel');
+function toggleMenu(){menu.classList.toggle('show')}
+document.addEventListener('click',e=>{if(!menu.contains(e.target)&&!e.target.closest('.menuButton'))menu.classList.remove('show')});
+const modal=document.getElementById('modal'),modalTitle=document.getElementById('modalTitle'),modalContent=document.getElementById('modalContent');
+function openModal(type){menu.classList.remove('show');modal.classList.add('show');if(type==='about'){modalTitle.textContent='About';modalContent.innerHTML='<p>This little website was made especially for Tanha.</p><p>Every chapter is just a tiny piece of a bigger feeling.</p>'}if(type==='privacy'){modalTitle.textContent='Privacy Policy';modalContent.innerHTML='<p>This is a personal single-file HTML website.</p><p>It does not intentionally collect, store, or sell personal information.</p><p>External GIFs are loaded from their respective hosting services.</p>'}if(type==='creator'){modalTitle.textContent='About Creator';modalContent.innerHTML='<div class="creatorName"><span>Shakin</span></div><p>A guy who wanted to make Tanha a tiny corner of the internet.</p><p>Built with code, late-night thoughts, and a little love.</p>'}}
+function closeModal(){modal.classList.remove('show')}
+function outsideClose(e){if(e.target===modal)closeModal()}
+function showLove(){const m=document.getElementById('loveMessage');const arr=['I miss you ♡','Still thinking of you.','You matter to me.','Wish you were here.','Tanha, you\'re special.','Just a little reminder ♡'];m.textContent=arr[Math.floor(Math.random()*arr.length)]}
+function memoryClick(card){card.style.transform='scale(.96)';setTimeout(()=>card.style.transform='translateY(-5px)',120)}
+const hearts=document.getElementById('hearts');for(let i=0;i<22;i++){const h=document.createElement('span');h.textContent='♡';h.style.left=Math.random()*100+'vw';h.style.fontSize=(11+Math.random()*19)+'px';h.style.animationDuration=(6+Math.random()*7)+'s';h.style.animationDelay=Math.random()*8+'s';hearts.appendChild(h)}
+
+/* ---------- THEME ENGINE ---------- */
+(function(){
+ const themes=['theme-pink','theme-lavender','theme-peach','theme-sky','theme-mint','theme-blue'];let i=0;
+ function apply(){themes.forEach(t=>document.body.classList.remove(t));document.body.classList.add(themes[i]);i=(i+1)%themes.length}
+ apply();setInterval(apply,8000);
+})();
+
+/* ---------- INTRO FLOW ---------- */
+(function(){
+ const robotLayer=document.getElementById('robotLayer'),cookieLayer=document.getElementById('cookieLayer'),loadingLayer=document.getElementById('loadingLayer'),passwordScreen=document.getElementById('passwordScreen'),robotButton=document.getElementById('robotVerifyBtn'),robotStatus=document.getElementById('robotStatus'),robotProgress=document.getElementById('robotProgress');
+ function showOnly(layer){[robotLayer,cookieLayer,loadingLayer].forEach(x=>x&&x.classList.add('hide'));if(layer){layer.classList.remove('hide');if(layer===cookieLayer){layer.scrollTop=0;requestAnimationFrame(()=>layer.scrollTop=0);}}}
+ showOnly(robotLayer);
+ window.verifyRobot=function(){
+   if(!robotButton||robotButton.disabled)return;
+   robotButton.disabled=true;robotButton.classList.add('verifying');robotButton.querySelector('#verifyText').textContent='Verifying...';robotStatus.textContent='Checking your session...';robotProgress.style.width='0%';
+   const duration=3200+Math.floor(Math.random()*1301),start=performance.now();
+   function tick(now){
+     const pct=Math.min(100,(now-start)/duration*100);robotProgress.style.width=pct+'%';
+     if(pct<35)robotStatus.textContent='Checking browser integrity...';else if(pct<72)robotStatus.textContent='Verifying secure access...';else if(pct<100)robotStatus.textContent='Almost complete...';
+     if(pct<100){requestAnimationFrame(tick);return}
+     robotButton.classList.remove('verifying');robotButton.classList.add('verified');robotButton.querySelector('#verifyText').textContent='Verified';robotButton.querySelector('#verifyCheck').textContent='✓';robotStatus.textContent='Verification successful';
+     setTimeout(()=>showOnly(cookieLayer),600);
+   }
+   requestAnimationFrame(tick);
+ };
+ window.acceptCookies=function(){try{localStorage.setItem('introCookiesAccepted','true')}catch(e){}startLoading()};
+ window.skipCookies=function(){try{localStorage.setItem('introCookiesSkipped','true')}catch(e){}startLoading()};
+ function startLoading(){showOnly(loadingLayer);setTimeout(finishIntro,1800)}
+ function finishIntro(){[robotLayer,cookieLayer,loadingLayer].forEach(x=>x&&x.classList.add('hide'));passwordScreen.classList.remove('hide');passwordScreen.style.display='flex';document.body.classList.remove('introRunning');document.body.classList.add('passwordReady');setTimeout(()=>passwordInput.focus(),200)}
+ window.unlockMainWebsite=function(){passwordScreen.classList.add('hide');passwordScreen.style.display='none';document.body.classList.remove('introRunning','passwordReady');window.scrollTo(0,0);/* FIXED: use global function */if(typeof window.updateChapters==='function')window.updateChapters()};
+ window.addEventListener('load',()=>{if(typeof window.updateChapters==='function')window.updateChapters()});
+})();
+
+
+/* =========================================================
+   FINAL CHROME-SAFE CHAPTER MUSIC
+========================================================= */
+
+(function(){
+
+    const songs = [
+        "music.mp3",
+        "music2.mp3",
+        "music3.mp3",
+        "music4.mp3",
+        "music5.mp3",
+        "music6.mp3",
+        "music7.mp3"
+    ];
+
+    let audio = null;
+    let currentMusicChapter = -1;
+
+    function getActiveChapter(){
+
+        const chapters =
+            document.querySelectorAll("main .chapter");
+
+        for(let i = 0; i < chapters.length; i++){
+
+            if(chapters[i].classList.contains("active")){
+                return i;
+            }
+
+        }
+
+        return 0;
+    }
+
+    function createAudio(){
+
+        if(audio) return audio;
+
+        audio = document.createElement("audio");
+
+        audio.id = "chapterMusic";
+        audio.preload = "auto";
+        audio.loop = true;
+        audio.volume = 0.55;
+
+        audio.setAttribute("playsinline","");
+        audio.style.display = "none";
+
+        document.body.appendChild(audio);
+
+        return audio;
+    }
+
+    function playChapterMusic(chapter){
+
+        if(
+            chapter < 0 ||
+            chapter >= songs.length
+        ){
+            return;
+        }
+
+        const a = createAudio();
+
+        if(
+            currentMusicChapter === chapter &&
+            !a.paused
+        ){
+            return;
+        }
+
+        currentMusicChapter = chapter;
+
+        /* Stop previous music completely */
+        try{
+            a.pause();
+        }catch(e){}
+
+        a.currentTime = 0;
+
+        /* Change song */
+        a.src = songs[chapter];
+
+        /* Important:
+           DO NOT wait with setTimeout.
+           DO NOT wait for MutationObserver.
+           Play immediately inside the user action. */
+
+        const promise = a.play();
+
+        if(promise){
+
+            promise.catch(function(error){
+
+                console.log(
+                    "Music blocked:",
+                    songs[chapter],
+                    error
+                );
+
+            });
+
+        }
+    }
+
+
+    /* =====================================================
+       START CHAPTER 1 WHEN PASSWORD IS UNLOCKED
+    ===================================================== */
+
+    const originalUnlock =
+        window.unlockMainWebsite;
+
+    if(typeof originalUnlock === "function"){
+
+        window.unlockMainWebsite = function(){
+
+            /* Keep original behaviour */
+            originalUnlock.apply(this,arguments);
+
+            /* Start first chapter music
+               during the same user action */
+            const chapter = getActiveChapter();
+
+            playChapterMusic(chapter);
+
+        };
+
+    }
+
+
+    /* =====================================================
+       NEXT CHAPTER
+    ===================================================== */
+
+    const originalNext =
+        window.nextChapter;
+
+    if(typeof originalNext === "function"){
+
+        window.nextChapter = function(event){
+
+            /* Original chapter system */
+            originalNext.apply(this,arguments);
+
+            /* Immediately switch music while the
+               Next button gesture is still active */
+            const chapter = getActiveChapter();
+
+            playChapterMusic(chapter);
+
+        };
+
+    }
+
+
+    /* =====================================================
+       RESTART
+    ===================================================== */
+
+  const originalRestart = window.restart;
+
+if(typeof originalRestart === "function"){
+
+    window.restart = function(event){
+
+        if(event){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        /* First stop current music */
+        const a = createAudio();
+
+        try{
+            a.pause();
+            a.currentTime = 0;
+        }catch(e){}
+
+        /* Reset music state */
+        currentMusicChapter = -1;
+
+        /* Run original restart */
+        originalRestart.call(this,event);
+
+        /* Force Chapter 1 music */
+        currentMusicChapter = -1;
+
+        /* Start Chapter 1 immediately */
+        playChapterMusic(0);
+    };
+
+}
+
+    /* =====================================================
+       FALLBACK:
+       If browser interaction happens and music is paused,
+       try current chapter again.
+    ===================================================== */
+
+    document.addEventListener(
+        "pointerdown",
+        function(){
+
+            if(
+                audio &&
+                currentMusicChapter >= 0 &&
+                audio.paused
+            ){
+
+                playChapterMusic(currentMusicChapter);
+
+            }
+
+        },
+        {passive:true}
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function(){
+
+            if(
+                audio &&
+                currentMusicChapter >= 0 &&
+                audio.paused
+            ){
+
+                playChapterMusic(currentMusicChapter);
+
+            }
+
+        },
+        {passive:true}
+    );
+
+
+})();
+  
+</script>
+</body>
+</html>
